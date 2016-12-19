@@ -3,8 +3,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Lesson2 {
 
@@ -44,6 +47,11 @@ public class Lesson2 {
 	        "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 	    /* YOUR CODE HERE */
+	   List<String> sList = list.stream()
+	   		.map(String::toUpperCase)
+	   		.collect(Collectors.toList());
+	  
+	   sList.forEach(System.out::println);
 	  }
 
 	  /**
@@ -57,6 +65,10 @@ public class Lesson2 {
 	        "The", "Quick", "BROWN", "Fox", "Jumped", "Over", "The", "LAZY", "DOG");
 
 	    /* YOUR CODE HERE */
+	    list.stream()
+	    .filter(s -> (s.length()%2) ==0)
+	    .collect(Collectors.toList())
+	    .forEach(System.out::println);
 	  }
 
 	  /**
@@ -70,6 +82,12 @@ public class Lesson2 {
 	        "The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
 
 	    /* YOUR CODE HERE */
+	    String s = list.stream()
+	    .skip(1)
+	    .limit(3)
+	    .collect(Collectors.joining("-"));
+	    
+	    System.out.println(s);
 	  }
 
 	  /**
@@ -77,8 +95,10 @@ public class Lesson2 {
 	   */
 	  private void exercise4() throws IOException {
 	    try (BufferedReader reader = Files.newBufferedReader(
-	        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+	        Paths.get("Sonnetl.txt"), StandardCharsets.UTF_8)) {
 	      /* YOUR CODE HERE */
+	    	System.out.println(reader.lines()
+	    	.count());
 	    }
 	  }
 	  
@@ -90,9 +110,16 @@ public class Lesson2 {
 	   */
 	  private void exercise5() throws IOException {
 	    try (BufferedReader reader = Files.newBufferedReader(
-	        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+	        Paths.get("Sonnetl.txt"), StandardCharsets.UTF_8)) {
 	      /* YOUR CODE HERE */
+	    	List<String> palabras = reader.lines()
+	    	.flatMap(s -> Stream.of(s.split(WORD_REGEXP)))
+	    	.distinct()
+	    	.collect(Collectors.toList());
+	    	
+	    	palabras.forEach(System.out::println);
 	    }
+
 	  }
 	  
 	  /**
@@ -102,8 +129,18 @@ public class Lesson2 {
 	   */
 	  private void exercise6() throws IOException {
 	    try (BufferedReader reader = Files.newBufferedReader(
-	        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+	        Paths.get("Sonnetl.txt"), StandardCharsets.UTF_8)) {
 	      /* YOUR CODE HERE */
+	    	List<String> palabras = reader.lines()
+	    			.flatMap(s -> Stream.of(s.split(WORD_REGEXP)))
+	    			.distinct()
+	    			.sorted()
+	    			.map(String::toLowerCase)
+	    			.collect(Collectors.toList());
+	    	
+	    	palabras.forEach(System.out::println);
+	    	
+	    	
 	    }
 	  }
 	  
@@ -112,8 +149,17 @@ public class Lesson2 {
 	   */
 	  private void exercise7() throws IOException {
 	    try (BufferedReader reader = Files.newBufferedReader(
-	        Paths.get("SonnetI.txt"), StandardCharsets.UTF_8)) {
+	        Paths.get("Sonnetl.txt"), StandardCharsets.UTF_8)) {
 	      /* YOUR CODE HERE */
+	    	
+	    	List<String> palabras = reader.lines()
+	    			.flatMap(s -> Stream.of(s.split(WORD_REGEXP)))
+	    			.distinct()
+	    			.sorted((a,b) -> a.length() - b.length())
+	    			.map(String::toLowerCase)
+	    			.collect(Collectors.toList());
+	    	
+	    	palabras.forEach(System.out::println);
 	    }
 	  }
 
