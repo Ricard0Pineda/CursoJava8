@@ -96,9 +96,10 @@ public class Lesson3 {
   public static void main(String[] args) throws IOException {
     RandomWords fullWordList = new RandomWords();
     List<String> wordList = fullWordList.createList(1000);
-
-    measure("Sequential", () -> computeLevenshtein(wordList, false));
-    measure("Parallel", () -> computeLevenshtein(wordList, true));
+    System.out.println("Loaded " + wordList.size() + " words");
+//
+//    measure("Sequential", () -> computeLevenshtein(wordList, false));
+//    measure("Parallel", () -> computeLevenshtein(wordList, true));
     
 //    measure("Sequential", () -> processWords(wordList, false));
 //    measure("Parallel", () -> processWords(wordList, true));

@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -21,9 +22,10 @@ public class RandomWords {
    * @throws IOException If the source words file cannot be read
    */
   public RandomWords() throws IOException {   
-    try (BufferedReader reader = Files.newBufferedReader(Paths.get("words"))) {
-      sourceWords = null;    // YOUR CODE HERE
-      
+    try (BufferedReader reader = Files.newBufferedReader(Paths.get("words.txt"))) {
+      sourceWords = reader.lines()
+    		  .collect(Collectors.toList());
+    		  
       System.out.println("Loaded " + sourceWords.size() + " words");
     }
   }
@@ -36,7 +38,12 @@ public class RandomWords {
    */
   public List<String> createList(int listSize) {
     Random rand = new Random();
-    List<String> wordList = null; // YOUR CODE HERE
+    List<Integer> randomIndex = rand.ints(listSize).boxed().collect(Collectors.toList());
+    List<String> wordList = new ArrayList<String>(); 
+    for (int i = 0; i<randomIndex.size();i++)
+    {
+    	wordList.add(sourceWords.get(i));
+    }
 
     return wordList;
   }
